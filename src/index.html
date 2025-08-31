@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Progressive Web App Meta Tags -->
+    <meta name="application-name" content="GRA Academic" />
+    <meta name="description" content="Graceland Royal Academy - Enhanced Academic Management System with AI-powered analytics and mobile capabilities" />
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="background-color" content="#ffffff" />
+    
+    <!-- PWA Display -->
+    <meta name="display" content="standalone" />
+    <meta name="orientation" content="portrait-primary" />
+    
+    <!-- Apple Touch Icon and PWA -->
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="GRA Academic" />
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#1e40af" />
+    <meta name="msapplication-TileImage" content="/favicon.ico" />
+    <meta name="msapplication-config" content="none" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/pwa-register.js" as="script" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Graceland Royal Academy - Academic Management" />
+    <meta property="og:description" content="Enhanced Academic Management System with AI-powered analytics" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/favicon.ico" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Graceland Royal Academy" />
+    <meta name="twitter:description" content="Enhanced Academic Management System" />
+    
+    <!-- Performance and Security -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="referrer" content="same-origin" />
+    
+    <!-- School Branding -->
+    <meta name="author" content="Graceland Royal Academy" />
+    <meta name="keywords" content="education, academic management, school, student results, analytics" />
+    
+    <title>Graceland Royal Academy - Academic Management System</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- PWA Registration Script -->
+    <script src="/pwa-register.js"></script>
+    
+    <!-- Vite Module Script -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Fallback for no-script users -->
+    <noscript>
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      ">
+        <div style="
+          background: white;
+          padding: 40px;
+          border-radius: 12px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          max-width: 400px;
+        ">
+          <h1 style="color: #1e40af; margin-bottom: 16px;">🎓 Graceland Royal Academy</h1>
+          <h2 style="color: #1e293b; margin-bottom: 24px;">Academic Management System</h2>
+          <p style="color: #64748b; margin-bottom: 24px;">
+            This application requires JavaScript to function properly. 
+            Please enable JavaScript in your browser settings and reload the page.
+          </p>
+          <div style="
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 16px;
+            color: #92400e;
+            font-size: 14px;
+          ">
+            <strong>Wisdom & Illumination</strong><br>
+            For technical support, please contact your system administrator.
+          </div>
+        </div>
+      </div>
+    </noscript>
+  </body>
+</html>
