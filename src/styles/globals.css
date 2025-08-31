@@ -1,3 +1,7 @@
+/* Watermark logo opacity utility */
+.logo-watermark-opacity {
+  opacity: 0.05;
+}
 /* Password strength bar dynamic width */
 .password-strength-bar {
   width: 0%;

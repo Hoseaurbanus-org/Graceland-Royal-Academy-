@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import schoolLogoImage from 'figma:asset/f9f8e5655457e1be50e841e78cb4827059d96895.png';
+import schoolLogoImage from '../assets/f9f8e5655457e1be50e841e78cb4827059d96895.png';
 
 interface SchoolLogoProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -99,8 +99,7 @@ export function LogoWatermark({ opacity = 0.05, size = 'large' }: { opacity?: nu
 
   return (
     <div 
-      className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${sizeClass[size]} pointer-events-none z-0`}
-      style={{ opacity }}
+      className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${sizeClass[size]} pointer-events-none z-0 logo-watermark-opacity`}
     >
       <img 
         src={schoolLogoImage} 

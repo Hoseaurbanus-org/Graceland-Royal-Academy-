@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 // Core Types
 export interface User {
@@ -122,6 +122,8 @@ export interface SessionTerm {
 }
 
 interface AuthContextType {
+  toggleStaffActive: (staffId: string) => Promise<{ success: boolean; error?: string }>;
+  resetStaffPassword: (staffId: string, newPassword: string) => Promise<{ success: boolean; error?: string }>;
   user: User | null;
   students: Student[];
   classes: Class[];
@@ -336,6 +338,47 @@ const getDefaultSessionTerms = (): SessionTerm[] => [
 ];
 
 export function AuthProvider({ children }: AuthProviderProps) {
+
+  // --- Staff Management Actions ---
+
+
+  // --- Staff Management Actions ---
+  const toggleStaffActive = async (staffId: string) => {
+    try {
+      if (!user || user.role !== 'admin') {
+        return { success: false, error: 'Only administrators can update staff' };
+      }
+      const updatedStaff = staff.map(s =>
+        s.id === staffId ? { ...s, is_active: !s.is_active, updated_at: new Date().toISOString() } : s
+      );
+      setStaff(updatedStaff);
+      saveToStorage('staff', updatedStaff);
+      toast.success('Staff status updated');
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: 'Failed to update staff status' };
+    }
+  };
+
+  const resetStaffPassword = async (staffId: string, newPassword: string) => {
+    try {
+      if (!user || user.role !== 'admin') {
+        return { success: false, error: 'Only administrators can reset passwords' };
+      }
+      // Find staff and user
+      const staffMember = staff.find(s => s.id === staffId);
+      if (!staffMember) return { success: false, error: 'Staff not found' };
+      const createdUsers = loadFromStorage('created_users', []);
+      const updatedUsers = createdUsers.map((u: User) =>
+        u.id === staffMember.user_id ? { ...u, password: newPassword, must_change_password: true } : u
+      );
+      saveToStorage('created_users', updatedUsers);
+      toast.success('Password reset successfully');
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: 'Failed to reset password' };
+    }
+  };
   const [user, setUser] = useState<User | null>(null);
   const [students, setStudents] = useState<Student[]>([]);
   const [classes, setClasses] = useState<Class[]>([]);
@@ -796,14 +839,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return { success: false, error: 'Student with this admission number already exists' };
       }
 
-      let parentId = null;
-      let photoUrl = undefined;
+  let parentId: string | undefined = undefined;
+  let photoUrl: string | undefined = undefined;
 
       // Upload photo if provided
       if (studentData.photo) {
         const photoResult = await uploadStudentPhoto(studentData.photo);
         if (photoResult.success) {
-          photoUrl = photoResult.url;
+          photoUrl = photoResult.url ?? undefined;
         } else {
           return { success: false, error: photoResult.error };
         }
@@ -846,7 +889,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         name: studentData.name,
         admission_number: studentData.admission_number,
         class_id: studentData.class_id,
-        parent_id: parentId,
+  parent_id: parentId,
         assigned_subjects: assignedSubjects,
         photo_url: photoUrl,
         created_at: new Date().toISOString(),
@@ -1252,9 +1295,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     createSubject,
     updateSubject,
     deleteSubject,
-    createStaff,
-    updateStaff,
-    deleteStaff,
+  createStaff,
+  updateStaff,
+  deleteStaff,
+  toggleStaffActive,
+  resetStaffPassword,
     registerStudent,
     updateStudent,
     deleteStudent,

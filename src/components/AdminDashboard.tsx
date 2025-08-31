@@ -82,7 +82,7 @@ export function AdminDashboard() {
         className="bg-gradient-to-r from-card via-card/95 to-card border border-border/50 rounded-lg p-6 shadow-sm"
       >
         <div className="flex items-center justify-between">
-          <SchoolLogo size="lg" showText={true} animated={false} />
+          <SchoolLogo size="lg" showText={true} animate={false} />
           <div className="flex items-center gap-3">
             {/* Connection Status */}
             <motion.div
@@ -135,45 +135,7 @@ export function AdminDashboard() {
           </motion.div>
         </div>
 
-        {/* Quick Start Guide */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/20 rounded-lg p-4"
-        >
-          <div className="flex items-start gap-3">
-            <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-              <Crown className="h-4 w-4" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-primary mb-2">Administrator Quick Start</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <span className="text-muted-foreground">Create staff accounts in the <strong className="text-foreground">Staff tab</strong></span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <span className="text-muted-foreground">Register students in the <strong className="text-foreground">Students tab</strong></span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <span className="text-muted-foreground">Student registration auto-creates parent accounts</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                  <span className="text-muted-foreground">Change your password in <strong className="text-foreground">Security tab</strong></span>
-                </div>
-              </div>
-              <div className="mt-3 p-2 bg-accent/20 rounded border border-accent/30">
-                <p className="text-xs text-muted-foreground">
-                  💡 <strong>Pro Tip:</strong> Start by creating staff accounts for supervisors and accountants, then register students. Each student registration will automatically create a parent account with dashboard access.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+  // ...existing code...
       </motion.div>
 
       {/* Main Content */}

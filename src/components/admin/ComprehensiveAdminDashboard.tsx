@@ -43,12 +43,14 @@ import {
   CreditCard,
   TrendingUp,
   Star,
-  Award
+  Award,
+  Power,
+  RefreshCw
 } from 'lucide-react';
 import { useAuth } from '../AuthContext';
 import { useNavigation } from '../Layout';
 import { SchoolLogo } from '../SchoolLogo';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export function ComprehensiveAdminDashboard() {
   const { 
@@ -79,7 +81,9 @@ export function ComprehensiveAdminDashboard() {
     publishResults,
     uploadStudentPhoto,
     getStudentsByClass,
-    setActiveSessionTerm
+  setActiveSessionTerm,
+  toggleStaffActive,
+  resetStaffPassword,
   } = useAuth();
 
   const { currentView } = useNavigation();
@@ -896,10 +900,25 @@ export function ComprehensiveAdminDashboard() {
                           </TableCell>
                           <TableCell>
                             <div className="flex space-x-2">
-                              <Button variant="outline" size="sm" onClick={() => handleEdit(staffMember, 'staff')}>
+                              <Button variant="outline" size="sm" onClick={() => handleEdit(staffMember, 'staff')} title="Edit">
                                 <Edit className="h-4 w-4" />
                               </Button>
-                              <Button variant="outline" size="sm" onClick={() => handleDelete(staffMember.id, 'staff')}>
+                              <Button variant="outline" size="sm" onClick={async () => {
+                                await toggleStaffActive?.(staffMember.id);
+                              }} title={staffMember.is_active ? "Deactivate" : "Reactivate"}>
+                                <Power className={`h-4 w-4 ${staffMember.is_active ? 'text-green-500' : 'text-gray-400'}`} />
+                              </Button>
+                              <Button variant="outline" size="sm" onClick={async () => {
+                                const newPassword = prompt('Enter new password for this staff:');
+                                if (newPassword && newPassword.length >= 6) {
+                                  await resetStaffPassword?.(staffMember.id, newPassword);
+                                } else if (newPassword) {
+                                  toast.error('Password must be at least 6 characters');
+                                }
+                              }} title="Reset Password">
+                                <RefreshCw className="h-4 w-4 text-blue-500" />
+                              </Button>
+                              <Button variant="outline" size="sm" onClick={() => handleDelete(staffMember.id, 'staff')} title="Delete">
                                 <Trash2 className="h-4 w-4" />
                               </Button>
                             </div>
@@ -957,12 +976,15 @@ export function ComprehensiveAdminDashboard() {
                           </Avatar>
                         </div>
                         <div className="flex-1">
+                          <label htmlFor="photo-upload" className="sr-only">Upload student photo</label>
                           <input
                             type="file"
                             id="photo-upload"
                             accept="image/*"
                             onChange={handlePhotoUpload}
                             className="hidden"
+                            title="Upload student photo"
+                            placeholder="Upload student photo"
                           />
                           <Button
                             type="button"
